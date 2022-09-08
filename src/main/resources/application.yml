@@ -1,0 +1,16 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+env:
+  redisUri: ${REDIS_URI}
+  botToken: ${BOT_TOKEN}
+  memerUrl: ${MEMER_URL}
+  dscViewerRedirectUrl: ${DSC_VIEWER_REDIRECT_URL}:""
+  domain: ${DOMAIN:""}
+  prod: ${TOMCAT_PROD:false}
+  imageUploadedQueueName: ${IMAGE_UPLOADED_QUEUE_NAME}
+  messageDeletedQueueName: ${MESSAGE_DELETED_QUEUE_NAME}
+  channelUpdatedQueueName: ${CHANNEL_UPDATED_QUEUE_NAME}
+
