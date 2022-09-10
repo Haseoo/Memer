@@ -1,0 +1,11 @@
+env:
+  redisUri: 'redis://localhost:2137'
+  botToken: 'foo'
+  memerUrl: 'foo'
+  dscViewerRedirectUrl: 'foo'
+  domain: 'localhost'
+  prod: false
+  imageUploadedQueueName: 'test'
+  messageDeletedQueueName: 'test'
+  channelUpdatedQueueName: 'test'
+

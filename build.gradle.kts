@@ -33,8 +33,13 @@ dependencies {
 	implementation("net.dv8tion:JDA:4.4.0_352")
 	implementation("io.lettuce:lettuce-core:6.2.0.RELEASE")
 	implementation("org.springframework.boot:spring-boot-starter-tomcat")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.amqp:spring-rabbit-test")
+	testImplementation("it.ozimov:embedded-redis:0.7.3") {
+		exclude(group = "org.slf4j", module = "slf4j-simple")
+	}
+	testImplementation("org.assertj:assertj-core:3.23.1")
 }
 
 dependencyManagement {
