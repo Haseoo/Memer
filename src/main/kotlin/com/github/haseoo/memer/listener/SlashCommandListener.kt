@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.springframework.stereotype.Service
 
 @Service
+@DiscordListener
 class SlashCommandListener : ListenerAdapter() {
     override fun onSlashCommand(event: SlashCommandEvent) {
         event.deferReply()
