@@ -74,6 +74,10 @@ tasks.jacocoTestReport {
 	}
 }
 
+tasks.war {
+	archiveFileName.set("memer.war")
+}
+
 sonarqube{
 	properties {
 		property("sonar.dynamicAnalysis", "reuseReports")

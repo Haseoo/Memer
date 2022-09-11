@@ -26,8 +26,15 @@ steps:
     codeCoverageTool: 'JaCoCo'
     summaryFileLocation: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.xml'
     reportDirectory: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/html'
-
 - task: SonarQubePublish@4
   inputs:
     pollingTimeoutSec: '300'
+- task: TomcatDeployment@1
+  inputs:
+    TomcatUrl: $(tomcatUrl)
+    Username: '$(TOMCATUSERNAME)'
+    Password: '$(TOMCATPASSWORD)'
+    Warfile: 'build/libs/memer.war'
+    Context: '/memer'
+    ServerVersion: '7OrAbove'
 
