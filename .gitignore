@@ -1,7 +1,6 @@
 node_modules
 HELP.md
 .gradle
-gradlew
 gradlew.bat
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -39,7 +38,5 @@ out/
 ### VS Code ###
 .vscode/
 /src/main/kotlin/com/github/haseoo/memer/pubsubtest/
-/gradlew
-/gradle/
 /frontend/
 /package.json
