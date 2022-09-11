@@ -1,0 +1,33 @@
+# Starter pipeline
+
+pr:
+  - master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: SonarQubePrepare@4
+  inputs:
+    SonarQube: 'Sonar'
+    scannerMode: 'Other'
+    extraProperties: 'sonar.projectKey=memer'
+- task: Gradle@3
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'build'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: true
+    spotBugsAnalysis: false
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'JaCoCo'
+    summaryFileLocation: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.xml'
+    reportDirectory: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/html'
+
+- task: SonarQubePublish@4
+  inputs:
+    pollingTimeoutSec: '300'
+

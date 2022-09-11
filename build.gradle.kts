@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "2.7.3"
 	id("io.spring.dependency-management") version "1.0.13.RELEASE"
 	id("jacoco")
+	id("org.sonarqube") version "3.4.0.2513"
 //	id("com.vaadin") version "23.1.7"
 	war
 	kotlin("jvm") version "1.6.21"
@@ -67,4 +68,16 @@ tasks.test {
 
 tasks.jacocoTestReport {
 	dependsOn(tasks.test)
+	reports {
+		html.required.set(true)
+		xml.required.set(true)
+	}
+}
+
+sonarqube{
+	properties {
+		property("sonar.dynamicAnalysis", "reuseReports")
+		property("sonar.jacoco.reportPath", "$rootDir/target/jacoco.exe")
+		property("sonar.language", "kotlin")
+	}
 }
