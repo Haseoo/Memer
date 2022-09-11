@@ -9,6 +9,7 @@ class Env {
     lateinit var redisUri: String
     lateinit var botToken: String
     lateinit var memerUrl: String
+    lateinit var dscViewerUrl: String
     lateinit var dscViewerRedirectUrl: String
     lateinit var domain: String
     var isProd: Boolean = false
