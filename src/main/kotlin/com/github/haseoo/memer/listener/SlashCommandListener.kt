@@ -1,19 +1,24 @@
 package com.github.haseoo.memer.listener
 
+import com.github.haseoo.memer.command.CommandResult
+import com.github.haseoo.memer.command.CommandService
+import com.github.haseoo.memer.command.SlashEventContext
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.springframework.stereotype.Service
 
 @Service
 @DiscordListener
-class SlashCommandListener : ListenerAdapter() {
+class SlashCommandListener(private val commandService: CommandService) : ListenerAdapter() {
     override fun onSlashCommand(event: SlashCommandEvent) {
+        super.onSlashCommand(event)
         event.deferReply()
-        if (event.name != "meme") {
-            return
+        val result = try {
+            commandService.execute(SlashEventContext(event)).execute()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            CommandResult("Oops, an exception has occurred, if it persist contact me on github (@Haseoo)", false)
         }
-        println(event.name)
-        event.options.forEach { println("${it.name} : ${it.asString}") }
-        event.reply("https://i.kym-cdn.com/photos/images/newsfeed/001/550/907/d41.jpg").setEphemeral(false).queue()
+        event.reply(result.replyMessage).setEphemeral(!result.isPublic).queue()
     }
 }
