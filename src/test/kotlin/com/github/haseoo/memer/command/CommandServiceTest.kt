@@ -18,13 +18,13 @@ import java.util.stream.Stream
 internal class CommandServiceTest {
 
     @MockK
-    lateinit var memeRepository: MemeRepository
+    private lateinit var memeRepository: MemeRepository
 
     @MockK
-    lateinit var env: Env
+    private lateinit var env: Env
 
     @InjectMockKs
-    lateinit var sut: CommandService
+    private lateinit var sut: CommandService
 
     @BeforeEach
     fun setUp() = MockKAnnotations.init(this)

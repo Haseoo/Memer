@@ -8,14 +8,14 @@ const val TEST_MEME_NAME = "testName"
 
 const val TEST_MEME_URL = "http://www.example.com"
 
-fun generateCommandContext(command: List<String>, args: Map<String, String>): CommandContext {
-    val mock = mockk<CommandContext>()
-    every { mock.command } returns command.toList()
-    every { mock.serverId } returns 2137L
-    every { mock.args } returns args
-    return mock
-}
+val COMMAND_ARGS = mapOf("name" to TEST_MEME_NAME, "url" to TEST_MEME_URL)
+
+const val TEST_SERVER_ID = 2137L
 
 fun generateCommandContext(command: List<String>): CommandContext {
-    return generateCommandContext(command, mapOf("name" to TEST_MEME_NAME, "url" to TEST_MEME_URL))
+    val mock = mockk<CommandContext>()
+    every { mock.command } returns command.toList()
+    every { mock.serverId } returns TEST_SERVER_ID
+    every { mock.args } returns COMMAND_ARGS
+    return mock
 }
