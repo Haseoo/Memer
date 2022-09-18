@@ -9,13 +9,13 @@ class CommandService(
     private val memeRepository: MemeRepository,
     private val env: Env
 ) {
-    fun execute(context: SlashEventContext) = when (context.command[0]) {
-         "meme" -> executeMemeCommand(context)
+    fun getCommand(context: CommandContext) = when (context.command[0]) {
+        "meme" -> executeMemeCommand(context)
         else -> UnknownCommand()
     }
 
 
-    private fun executeMemeCommand(context: SlashEventContext) = when (context.command[1]) {
+    private fun executeMemeCommand(context: CommandContext) = when (context.command[1]) {
         "get" -> GetMemeCommand(memeRepository, context.serverId, context.args, env)
         "add" -> AddMemeCommand(memeRepository, context.serverId, context.args)
         "delete" -> DeleteMemeCommand(memeRepository, context.serverId, context.args)

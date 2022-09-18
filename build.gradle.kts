@@ -43,7 +43,7 @@ dependencies {
 		exclude(group = "org.slf4j", module = "slf4j-simple")
 	}
 	testImplementation("org.assertj:assertj-core:3.23.1")
-	testImplementation("net.saliman:gradle-cobertura-plugin:4.0.0")
+	testImplementation("io.mockk:mockk:1.12.8")
 }
 
 dependencyManagement {

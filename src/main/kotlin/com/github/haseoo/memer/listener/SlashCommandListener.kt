@@ -2,7 +2,6 @@ package com.github.haseoo.memer.listener
 
 import com.github.haseoo.memer.command.CommandResult
 import com.github.haseoo.memer.command.CommandService
-import com.github.haseoo.memer.command.SlashEventContext
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import org.springframework.stereotype.Service
@@ -14,7 +13,7 @@ class SlashCommandListener(private val commandService: CommandService) : Listene
         super.onSlashCommand(event)
         event.deferReply()
         val result = try {
-            commandService.execute(SlashEventContext(event)).execute()
+            commandService.getCommand(SlashEventContext(event)).execute()
         } catch (e: IllegalArgumentException) {
             CommandResult(e.message ?: "Bad arguments", false)
         }

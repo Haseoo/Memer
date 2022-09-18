@@ -66,7 +66,7 @@ class UpdateMemeCommand (
     private val memeUrl: String
     init {
         memeName = args[MEME_NAME_ARG]!!
-        require(!urlValidator.isValid(args[MEME_URL_ARG]!!)) { "Provided url is not valid" }
+        require(urlValidator.isValid(args[MEME_URL_ARG]!!)) { "Provided url is not valid" }
         memeUrl = args[MEME_URL_ARG]!!
     }
     override fun execute() = CommandResult(
