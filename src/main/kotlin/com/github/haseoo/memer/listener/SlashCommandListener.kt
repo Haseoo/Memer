@@ -15,7 +15,10 @@ class SlashCommandListener(private val commandService: CommandService) : Listene
         event.deferReply()
         val result = try {
             commandService.execute(SlashEventContext(event)).execute()
-        } catch (e: Exception) {
+        } catch (e: IllegalArgumentException) {
+            CommandResult(e.message ?: "Bad arguments", false)
+        }
+        catch (e: Exception) {
             e.printStackTrace()
             CommandResult("Oops, an exception has occurred, if it persist contact me on github (@Haseoo)", false)
         }

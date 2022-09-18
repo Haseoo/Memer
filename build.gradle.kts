@@ -35,6 +35,7 @@ dependencies {
 	implementation("net.dv8tion:JDA:4.4.0_352")
 	implementation("io.lettuce:lettuce-core:6.2.0.RELEASE")
 	implementation("org.springframework.boot:spring-boot-starter-tomcat")
+	implementation("commons-validator:commons-validator:1.7")
 	testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.amqp:spring-rabbit-test")
