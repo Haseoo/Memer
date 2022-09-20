@@ -90,13 +90,14 @@ class DeleteMemeCommand (
     )
 }
 
-class RankingMemeCommand (
+class MemeRankingCommand(
     private val memeRepository: MemeRepository,
-    private val serverId: Long): Command {
+    private val serverId: Long
+) : Command {
     override fun execute(): CommandResult = CommandResult(
         memeRepository.getRanking(serverId)
-            .mapIndexed{ ranking, meme -> "#${ranking + 1}: ${meme.name}\n" }
-            .joinToString(),
+            .mapIndexed { ranking, meme -> "#${ranking + 1}: ${meme.name} used ${meme.count} times\n" }
+            .joinToString(""),
         false
     )
 }

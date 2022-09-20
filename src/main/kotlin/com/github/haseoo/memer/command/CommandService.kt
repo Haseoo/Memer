@@ -20,7 +20,7 @@ class CommandService(
         "add" -> AddMemeCommand(memeRepository, context.serverId, context.args)
         "delete" -> DeleteMemeCommand(memeRepository, context.serverId, context.args)
         "update" -> UpdateMemeCommand(memeRepository, context.serverId, context.args)
-        "ranking" -> RankingMemeCommand(memeRepository, context.serverId)
+        "ranking" -> MemeRankingCommand(memeRepository, context.serverId)
         "list" -> ListMemeCommand(memeRepository, context.serverId, env)
         else -> UnknownCommand()
     }
