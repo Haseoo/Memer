@@ -40,7 +40,7 @@ internal class GetMemeCommandTest {
     }
 
     @Test
-    fun `get meme returns meme url from repository as a public message`() {
+    fun `get meme command returns meme url from repository as a public message`() {
         //given
         every { memeRepository.getMemeUrlByName(TEST_SERVER_ID, TEST_MEME_NAME) } returns TEST_MEME_URL
         //when
@@ -51,7 +51,7 @@ internal class GetMemeCommandTest {
     }
 
     @Test
-    fun `get meme returns 'no meme' url as a public message when meme is not present in repository`() {
+    fun `get meme command returns 'no meme' url as a public message when meme is not present in repository`() {
         //given
         every { memeRepository.getMemeUrlByName(TEST_SERVER_ID, TEST_MEME_NAME) } returns null
         //when
