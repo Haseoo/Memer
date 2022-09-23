@@ -6,14 +6,16 @@ import com.github.haseoo.memer.domain.NAME_MEME_RECORD_FIELD_NAME
 import com.github.haseoo.memer.domain.URL_MEME_RECORD_FIELD_NAME
 import io.lettuce.core.RedisClient
 import io.lettuce.core.api.sync.RedisCommands
+import mu.KotlinLogging
 import org.springframework.stereotype.Repository
-import java.util.SortedSet
+import java.util.*
 
 
 @Repository
 class MemeRepository (redisClient: RedisClient) {
 
     private val _redisCommand: RedisCommands<String, String>
+    private val logger = KotlinLogging.logger {}
 
     init {
         _redisCommand = redisClient.connect().sync()
@@ -30,24 +32,33 @@ class MemeRepository (redisClient: RedisClient) {
 
     fun getRanking(serverId: Long): Collection<Meme> =
         getMemesKeys(serverId)
-            .map {_redisCommand.hgetall(it) }
+            .map { _redisCommand.hgetall(it) }
             .map { Meme(it) }
             .sortedByDescending { it.count }
             .take(10)
 
     fun getMemes(serverId: Long): Collection<Meme> =
         getMemesKeys(serverId)
-            .map {_redisCommand.hgetall(it) }
+            .map { _redisCommand.hgetall(it) }
             .map { Meme(it) }
+
+    fun removeIf(predicate: (Meme) -> Boolean) {
+        val memesToDelete = _redisCommand.keys("meme:*")
+            .filter { predicate(Meme(_redisCommand.hgetall(it))) }
+            .toTypedArray()
+        logger.info { "Deleted memes: ${memesToDelete.contentToString()}" }
+        _redisCommand.del(*memesToDelete)
+    }
+
 
     fun getMemeNames(serverId: Long): SortedSet<String> =
         getMemesKeys(serverId)
-            .map {_redisCommand.hget(it, NAME_MEME_RECORD_FIELD_NAME) }
+            .map { _redisCommand.hget(it, NAME_MEME_RECORD_FIELD_NAME) }
             .toSortedSet()
 
     fun addMeme(serverId: Long, memeName: String, memeUrl: String): Boolean {
         val memeId = getMemeId(serverId, memeName)
-        if(_redisCommand.exists(memeId) != 0L) {
+        if (_redisCommand.exists(memeId) != 0L) {
             return false
         }
         return _redisCommand.hmset(memeId, Meme(memeName, memeUrl, 0).toMap()) == "OK"
