@@ -63,7 +63,7 @@ internal class MemeRepositoryTest {
         //given
         val serverId = 2137L
         val meme = Meme("testName1", "testURL", 2137)
-        val memeId = "meme:$serverId:${meme.name}"
+        val memeId = memeToKey(serverId, meme)
         redisCommands.hmset(memeId, meme.toMap())
         //when
         val result = sut.getMemeUrlByName(serverId, meme.name)
@@ -90,8 +90,8 @@ internal class MemeRepositoryTest {
         val serverId = 2137L
         val meme1 = Meme("testName1", "testURL", 2137)
         val meme2 =  Meme("testName2", "testURL", 2137)
-        redisCommands.hmset("meme:$serverId:${meme1.name}", meme1.toMap())
-        redisCommands.hmset("meme:$serverId:${meme2.name}", meme2.toMap())
+        redisCommands.hmset(memeToKey(serverId, meme1), meme1.toMap())
+        redisCommands.hmset(memeToKey(serverId, meme2), meme2.toMap())
         //when
         val result = sut.getMemeNames(serverId)
         //then
@@ -104,8 +104,8 @@ internal class MemeRepositoryTest {
         val serverId = 2137L
         val meme1 = Meme("testName1", "testURL", 2137)
         val meme2 =  Meme("testName2", "testURL", 2137)
-        redisCommands.hmset("meme:$serverId:${meme1.name}", meme1.toMap())
-        redisCommands.hmset("meme:$serverId:${meme2.name}", meme2.toMap())
+        redisCommands.hmset(memeToKey(serverId, meme1), meme1.toMap())
+        redisCommands.hmset(memeToKey(serverId, meme2), meme2.toMap())
         //when
         val result = sut.getMemes(serverId)
         //then
@@ -117,7 +117,7 @@ internal class MemeRepositoryTest {
         //given
         val serverId = 2137L
         val meme = Meme("testName1", "testURL", 2137)
-        val memeId = "meme:$serverId:${meme.name}"
+        val memeId = memeToKey(serverId, meme)
         //when
         val result = sut.addMeme(serverId, meme.name, meme.url)
         //then
@@ -132,7 +132,7 @@ internal class MemeRepositoryTest {
         //given
         val serverId = 2137L
         val meme = Meme("testName1", "testURL", 2137)
-        val memeId = "meme:$serverId:${meme.name}"
+        val memeId = memeToKey(serverId, meme)
         redisCommands.hmset(memeId, meme.toMap())
         //when & then
         assertThat(sut.addMeme(serverId, meme.name, meme.url)).isFalse
@@ -151,7 +151,7 @@ internal class MemeRepositoryTest {
         //given
         val serverId = 2137L
         val meme = Meme("testName1", "testURL", 2137)
-        val memeId = "meme:$serverId:${meme.name}"
+        val memeId = memeToKey(serverId, meme)
         redisCommands.hmset(memeId, meme.toMap())
         //when
         val newMemeUrl = "new url"
@@ -168,7 +168,7 @@ internal class MemeRepositoryTest {
         //given
         val serverId = 2137L
         val meme = Meme("testName1", "testURL", 2137)
-        redisCommands.hmset("meme:$serverId:${meme.name}", meme.toMap())
+        redisCommands.hmset(memeToKey(serverId, meme), meme.toMap())
         //when & then
         assertThat(sut.deleteMeme(serverId, meme.name)).isTrue
     }
@@ -189,7 +189,7 @@ internal class MemeRepositoryTest {
             .map { Meme("meme$it", "urlOfMeme", it) }
             .toList()
         memes.shuffled()
-            .forEach { redisCommands.hmset("meme:$serverId:${it.name}", it.toMap()) }
+            .forEach { redisCommands.hmset(memeToKey(serverId, it), it.toMap()) }
         //when
         val result = sut.getRanking(serverId)
         //then
@@ -197,5 +197,25 @@ internal class MemeRepositoryTest {
         assertThat(result).containsSequence(memes.subList(0, 10))
         assertThat(result).doesNotContainAnyElementsOf(memes.subList(10, 16))
     }
+
+    @Test
+    fun `remove if deletes memes satisfying condition`() {
+        //given
+        val serverId = 3721L
+        val memes = (15 downTo 0)
+                .map { Meme("meme$it", "urlOfMeme", it) }
+            .toList()
+        memes.forEach { redisCommands.hmset(memeToKey(serverId, it), it.toMap()) }
+        val expectedKeys = memes.subList(0, 6)
+            .map { memeToKey(serverId, it) }
+            .toTypedArray()
+        //when
+        sut.removeIf { it.count < 10 }
+        //then
+        assertThat(redisCommands.keys("*"))
+            .containsOnly(*expectedKeys)
+    }
+
+    private fun memeToKey(serverId: Long, it: Meme) = "meme:$serverId:${it.name}"
 
 }
