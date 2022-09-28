@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.requests.GatewayIntent
 import org.springframework.context.ApplicationContext
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 import org.springframework.context.event.ContextClosedEvent
@@ -18,6 +19,10 @@ import org.springframework.context.event.EventListener
 class DiscordConfiguration(private val env: Env,
                            private val applicationContext: ApplicationContext) {
     private var jda: JDA? = null
+
+    @Bean
+    @org.springframework.context.annotation.Lazy
+    fun jda() = jda
 
     @EventListener(ContextRefreshedEvent::class)
     fun contextRefreshedEvent() {

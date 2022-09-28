@@ -1,5 +1,3 @@
-from ast import main
-from tkinter.tix import MAIN
 import redis
 
 if __name__ == '__main__':

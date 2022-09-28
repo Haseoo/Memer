@@ -1,0 +1,65 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{_layout}">
+<div layout:fragment="content">
+    <header class="d-flex align-items-center mb-3 justify-content-center">
+        <span class="fs-3 text-center">Memes from the <span th:text="${serverName}"></span></span>
+    </header>
+    <nav class="jumbotron text-center">
+        <div class="d-flex align-items-center justify-content-center">
+            <span class="lead d-flex align-items-center">Select sorting:</span>
+            <div style="padding: 10px 0" class="dropdown">
+                <a
+                        class="btn btn-secondary dropdown-toggle"
+                        href="#"
+                        role="button"
+                        id="dropdownMenuLink"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                    <span th:text="${sortBy}" />
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li>
+                        <a class="dropdown-item" href="?sortByCount=false">by name</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="?sortByCount=true"
+                        >by popularity</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row d-flex align-items-center">
+        <div th:each="meme: ${memes}" class="col-md-4">
+            <div class="card mb-4">
+                <a target="_blank" th:href="${meme.url}">
+                    <img
+                            th:if="${meme.type.name() == 'IMAGE' || meme.type.name() == 'UNKNOWN'}"
+                            class="card-img-top meme"
+                            th:alt="${meme.name}"
+                            th:src="${meme.url}"
+                    />
+                    <video
+                            controls
+                            th:if="${meme.type.name() == 'VIDEO'}"
+                            class="card-img-top meme"
+                            th:alt="${meme.name}"
+                    >
+                        <source th:src="${meme.url}"/>
+                    </video>
+                </a>
+                <div class="card-body">
+                    <div class="meme-name text-center" th:text="${meme.name}"/>
+                    <div class="meme-sub-name text-center">
+                        used <span th:text="${meme.count}"/> times
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" th:href="@{/memeList/styles.css}">
+</div>

@@ -43,6 +43,9 @@ dependencies {
 	testImplementation("io.mockk:mockk:1.12.8")
 
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.0")
+
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0")
 }
 
 

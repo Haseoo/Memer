@@ -1,0 +1,32 @@
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+main.container {
+  margin-top: 60px;
+  padding: 30px 15px;
+  background-color: rgb(35, 35, 35);
+}
+
+.navbar {
+  background-color: black;
+
+}
+
+.left-top-nav {
+  margin-left: auto;
+}
+
+footer {
+  background-color: black;
+  color: whitesmoke;
+}
+
+footer a {
+  color: skyblue;
+}
+
+body {
+  background-color: rgb(25, 25, 25);
+  color: whitesmoke
+}

@@ -109,7 +109,9 @@ class ListMemeCommand (
 
     private val memesUrl = env.memerUrl + "/memes/$serverId"
     override fun execute(): CommandResult = CommandResult(
-        memeRepository.getMemes(serverId).joinToString(
+        memeRepository.getMemes(serverId)
+            .sortedBy { it.name }
+            .joinToString(
             ", ",
             "Meme list on the sever: ",
             ".\nYou can see all memes here <$memesUrl>."

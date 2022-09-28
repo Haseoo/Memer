@@ -1,0 +1,35 @@
+.card {
+  background-color: transparent;
+  border: solid white 1px;
+  border-radius: 0;
+}
+
+.card-body {
+  padding-top: 8px;
+  border-top: solid white 1px;
+}
+
+nav.jumbotron {
+  margin-bottom: 1em;
+}
+
+span.lead {
+  margin-right: 1ex;
+}
+
+.meme-name {
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.sub-meme-name {
+  font-size: 12pt;
+}
+
+.meme {
+  height: 100%;
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  display: block;
+}

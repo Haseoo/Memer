@@ -1,0 +1,8 @@
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{_layout}">
+<div class="alert alert-danger" role="alert" layout:fragment="content">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span th:text="${message}"></span>
+</div>
