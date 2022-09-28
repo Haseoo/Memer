@@ -11,6 +11,7 @@ class CommandService(
 ) {
     fun getCommand(context: CommandContext) = when (context.command[0]) {
         "meme" -> executeMemeCommand(context)
+        "help" -> HelpCommand()
         else -> UnknownCommand()
     }
 

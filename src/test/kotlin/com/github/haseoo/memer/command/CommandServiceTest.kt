@@ -52,6 +52,9 @@ internal class CommandServiceTest {
                 Arguments.of(listOf("meme", "delete"), DeleteMemeCommand::class.java),
                 Arguments.of(listOf("meme", "list"), ListMemeCommand::class.java),
                 Arguments.of(listOf("meme", "ranking"), MemeRankingCommand::class.java),
+                Arguments.of(listOf("help"), HelpCommand::class.java),
+                Arguments.of(listOf("blah blah"), UnknownCommand::class.java),
+                Arguments.of(listOf("meme", "blah blah"), UnknownCommand::class.java)
             )
         }
     }
