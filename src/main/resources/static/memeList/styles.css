@@ -1,12 +1,10 @@
 .card {
-  background-color: transparent;
-  border: solid white 1px;
-  border-radius: 0;
+  border: none;
+  background-color: black;
 }
 
 .card-body {
-  padding-top: 8px;
-  border-top: solid white 1px;
+  padding-top: 0!important
 }
 
 nav.jumbotron {
@@ -18,18 +16,23 @@ span.lead {
 }
 
 .meme-name {
-  font-size: 16pt;
-  font-weight: bold;
+  font-size: 24pt;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .sub-meme-name {
   font-size: 12pt;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .meme {
   height: 100%;
   width: 100%;
-  max-height: 300px;
-  object-fit: contain;
   display: block;
+  border: solid white 1px;
+  border-radius: 0;
+}
+
+.meme-broder {
+  padding: 20px 20px 0 20px;
 }

@@ -22,7 +22,7 @@ class MemeListController(
         modelAndView.addObject("serverName", jda
             ?.getGuildById(serverId)
             ?.name
-            ?: "server")
+            ?: "the server")
         modelAndView.addObject("memes",
             if (sortByCount == true) memeViews.sortedByDescending { it.count } else memeViews.sortedBy { it.name })
         modelAndView.addObject("sortBy", if(sortByCount == true) "by popularity" else "by name")

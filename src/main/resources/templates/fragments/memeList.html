@@ -4,7 +4,7 @@
       layout:decorate="~{_layout}">
 <div layout:fragment="content">
     <header class="d-flex align-items-center mb-3 justify-content-center">
-        <span class="fs-3 text-center">Memes from the <span th:text="${serverName}"></span></span>
+        <span class="fs-3 text-center">Memes from <span th:text="${serverName}"></span></span>
     </header>
     <nav class="jumbotron text-center">
         <div class="d-flex align-items-center justify-content-center">
@@ -33,25 +33,27 @@
             </div>
         </div>
     </nav>
-    <div class="row d-flex align-items-center">
+    <div class="row d-flex align-items-center" data-masonry='{"percentPosition": true }'>
         <div th:each="meme: ${memes}" class="col-md-4">
-            <div class="card mb-4">
-                <a target="_blank" th:href="${meme.url}">
-                    <img
-                            th:if="${meme.type.name() == 'IMAGE' || meme.type.name() == 'UNKNOWN'}"
-                            class="card-img-top meme"
-                            th:alt="${meme.name}"
-                            th:src="${meme.url}"
-                    />
-                    <video
-                            controls
-                            th:if="${meme.type.name() == 'VIDEO'}"
-                            class="card-img-top meme"
-                            th:alt="${meme.name}"
-                    >
-                        <source th:src="${meme.url}"/>
-                    </video>
-                </a>
+            <div th:id="${meme.name}" class="card mb-4">
+                <div class="meme-broder">
+                    <a target="_blank" th:href="${meme.url}">
+                        <img
+                                th:if="${meme.type.name() == 'IMAGE' || meme.type.name() == 'UNKNOWN'}"
+                                class="card-img-top meme"
+                                th:alt="${meme.name}"
+                                th:src="${meme.url}"
+                        />
+                        <video
+                                controls
+                                th:if="${meme.type.name() == 'VIDEO'}"
+                                class="card-img-top meme"
+                                th:alt="${meme.name}"
+                        >
+                            <source th:src="${meme.url}"/>
+                        </video>
+                    </a>
+                </div>
                 <div class="card-body">
                     <div class="meme-name text-center" th:text="${meme.name}"/>
                     <div class="meme-sub-name text-center">
@@ -62,4 +64,9 @@
         </div>
     </div>
     <link rel="stylesheet" th:href="@{/memeList/styles.css}">
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+            integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+            crossorigin="anonymous"
+            async>
+    </script>
 </div>
