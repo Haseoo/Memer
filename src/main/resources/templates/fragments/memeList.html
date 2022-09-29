@@ -1,7 +1,7 @@
 <html lang="en"
+      layout:decorate="~{_layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{_layout}">
+      xmlns:th="http://www.thymeleaf.org">
 <div layout:fragment="content">
     <header class="d-flex align-items-center mb-3 justify-content-center">
         <span class="fs-3 text-center">Memes from <span th:text="${serverName}"></span></span>
@@ -9,18 +9,18 @@
     <nav class="jumbotron text-center">
         <div class="d-flex align-items-center justify-content-center">
             <span class="lead d-flex align-items-center">Select sorting:</span>
-            <div style="padding: 10px 0" class="dropdown">
+            <div class="dropdown" style="padding: 10px 0">
                 <a
-                        class="btn btn-secondary dropdown-toggle"
-                        href="#"
-                        role="button"
-                        id="dropdownMenuLink"
-                        data-bs-toggle="dropdown"
                         aria-expanded="false"
+                        class="btn btn-secondary dropdown-toggle"
+                        data-bs-toggle="dropdown"
+                        href="#"
+                        id="dropdownMenuLink"
+                        role="button"
                 >
-                    <span th:text="${sortBy}" />
+                    <span th:text="${sortBy}"/>
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <ul aria-labelledby="dropdownMenuLink" class="dropdown-menu">
                     <li>
                         <a class="dropdown-item" href="?sortByCount=false">by name</a>
                     </li>
@@ -34,21 +34,21 @@
         </div>
     </nav>
     <div class="row d-flex align-items-center" data-masonry='{"percentPosition": true }'>
-        <div th:each="meme: ${memes}" class="col-md-4">
-            <div th:id="${meme.name}" class="card mb-4">
+        <div class="col-md-4" th:each="meme: ${memes}">
+            <div class="card mb-4" th:id="${meme.name}">
                 <div class="meme-broder">
                     <a target="_blank" th:href="${meme.url}">
                         <img
-                                th:if="${meme.type.name() == 'IMAGE' || meme.type.name() == 'UNKNOWN'}"
                                 class="card-img-top meme"
                                 th:alt="${meme.name}"
+                                th:if="${meme.type.name() == 'IMAGE' || meme.type.name() == 'UNKNOWN'}"
                                 th:src="${meme.url}"
                         />
                         <video
-                                controls
-                                th:if="${meme.type.name() == 'VIDEO'}"
                                 class="card-img-top meme"
+                                controls
                                 th:alt="${meme.name}"
+                                th:if="${meme.type.name() == 'VIDEO'}"
                         >
                             <source th:src="${meme.url}"/>
                         </video>
@@ -64,9 +64,9 @@
         </div>
     </div>
     <link rel="stylesheet" th:href="@{/memeList/styles.css}">
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-            integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+    <script async
             crossorigin="anonymous"
-            async>
+            integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+            src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js">
     </script>
 </div>
