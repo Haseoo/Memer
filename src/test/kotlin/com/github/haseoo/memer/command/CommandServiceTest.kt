@@ -44,19 +44,17 @@ internal class CommandServiceTest {
 
     companion object {
         @JvmStatic
-        fun provideCommandTestArgument(): Stream<Arguments> {
-            return Stream.of(
-                Arguments.of(listOf("meme", "get"), GetMemeCommand::class.java),
-                Arguments.of(listOf("meme", "add"), AddMemeCommand::class.java),
-                Arguments.of(listOf("meme", "update"), UpdateMemeCommand::class.java),
-                Arguments.of(listOf("meme", "delete"), DeleteMemeCommand::class.java),
-                Arguments.of(listOf("meme", "list"), ListMemeCommand::class.java),
-                Arguments.of(listOf("meme", "ranking"), MemeRankingCommand::class.java),
-                Arguments.of(listOf("help"), HelpCommand::class.java),
-                Arguments.of(listOf("blah blah"), UnknownCommand::class.java),
-                Arguments.of(listOf("meme", "blah blah"), UnknownCommand::class.java)
-            )
-        }
+        fun provideCommandTestArgument(): Stream<Arguments> = Stream.of(
+            Arguments.of(listOf("meme", "get"), GetMemeCommand::class.java),
+            Arguments.of(listOf("meme", "add"), AddMemeCommand::class.java),
+            Arguments.of(listOf("meme", "update"), UpdateMemeCommand::class.java),
+            Arguments.of(listOf("meme", "delete"), DeleteMemeCommand::class.java),
+            Arguments.of(listOf("meme", "list"), ListMemeCommand::class.java),
+            Arguments.of(listOf("meme", "ranking"), MemeRankingCommand::class.java),
+            Arguments.of(listOf("help"), HelpCommand::class.java),
+            Arguments.of(listOf("blah blah"), UnknownCommand::class.java),
+            Arguments.of(listOf("meme", "blah blah"), UnknownCommand::class.java)
+        )
     }
 
 }

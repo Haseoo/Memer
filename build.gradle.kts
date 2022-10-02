@@ -34,13 +34,18 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-tomcat")
 	implementation("commons-validator:commons-validator:1.7")
 	testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(module = "mockito-core")
+	}
 	//testImplementation("org.springframework.amqp:spring-rabbit-test")
 	testImplementation("it.ozimov:embedded-redis:0.7.3") {
 		exclude(group = "org.slf4j", module = "slf4j-simple")
 	}
 	testImplementation("org.assertj:assertj-core:3.23.1")
 	testImplementation("io.mockk:mockk:1.12.8")
+	testImplementation("com.ninja-squad:springmockk:3.1.1")
+	testImplementation("org.hamcrest:hamcrest:2.2")
+
 
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.0")
 

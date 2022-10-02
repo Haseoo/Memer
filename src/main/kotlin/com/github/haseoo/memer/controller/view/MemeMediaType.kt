@@ -9,14 +9,15 @@ fun getMediaType(url: String): MemeMediaType {
     if (url.contains("/mp4"))
         return MemeMediaType.VIDEO
     val extensionPosition = url.lastIndexOf(".")
-    if(extensionPosition == -1) {
+    if (extensionPosition == -1) {
         return MemeMediaType.UNKNOWN
     }
-    val fileExtension = url.substring(extensionPosition)
-    return if(fileExtension in videosTypes)
-        MemeMediaType.VIDEO
-    else
-        MemeMediaType.IMAGE
+    return when (url.substring(extensionPosition)) {
+        in videoTypes -> MemeMediaType.VIDEO
+        in imageTypes -> MemeMediaType.IMAGE
+        else -> MemeMediaType.UNKNOWN
+    }
 }
 
-private val videosTypes = arrayOf(".mp4", ".mov", ".webm", ".mov")
+private val videoTypes = arrayOf(".mp4", ".mov", ".webm", ".mov")
+private val imageTypes = arrayOf(".jpg", ".jpeg", ".JPG", ".gif", ".gifv", ".png", ".PNG")
