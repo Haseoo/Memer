@@ -13,7 +13,6 @@ import org.springframework.context.event.ContextClosedEvent
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 
-
 @Configuration
 @Profile("!test")
 class DiscordConfiguration(private val env: Env,
@@ -34,7 +33,9 @@ class DiscordConfiguration(private val env: Env,
             .enableIntents(GatewayIntent.GUILD_MEMBERS)
             .addEventListeners(*listeners)
             .build()
-        jda!!.presence.activity = Activity.playing("Your mom")
+        jda!!.presence.activity = Activity.playing("/help")
+
+        initSlashCommands(jda!!)
     }
 
     @EventListener(ContextClosedEvent::class)

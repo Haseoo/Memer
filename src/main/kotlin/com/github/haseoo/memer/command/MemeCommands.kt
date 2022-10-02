@@ -4,18 +4,19 @@ import com.github.haseoo.memer.config.Env
 import com.github.haseoo.memer.repository.MemeRepository
 import org.apache.commons.validator.routines.UrlValidator
 
-private const val MEME_NAME_ARG = "name"
-private const val MEME_URL_ARG = "url"
+const val MEME_NAME_ARG = "name"
+const val MEME_URL_ARG = "url"
 private val urlValidator = UrlValidator()
 private fun requireValidUrl(args: Map<String, String>) {
     require(urlValidator.isValid(args[MEME_URL_ARG]!!)) { "Provided url is not valid." }
 }
+
 abstract class BaseMemeCommand(
     protected val memeRepository: MemeRepository,
     protected val serverId: Long,
     args: Map<String, String>,
     vararg argNames: String
-): Command {
+) : Command {
     init {
         validateCommandArguments(args, *argNames)
     }
