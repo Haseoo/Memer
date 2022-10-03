@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 class SlashCommandListener(private val commandService: CommandService) : ListenerAdapter() {
     override fun onSlashCommand(event: SlashCommandEvent) {
         super.onSlashCommand(event)
-        event.deferReply()
+        event.deferReply().queue()
         val result = try {
             commandService.getCommand(SlashEventContext(event)).execute()
         } catch (e: IllegalArgumentException) {
