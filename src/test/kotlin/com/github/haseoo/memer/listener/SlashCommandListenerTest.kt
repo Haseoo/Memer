@@ -66,7 +66,6 @@ internal class SlashCommandListenerTest {
         sut.onSlashCommand(eventMock)
         //then
         verify { eventMock.deferReply() }
-        verify { deferReplyActionMock.queue() }
         verify { replyActionMock.queue() }
 
         //scenario: when unexpected exception occurs handler replies with defined error message as private message
