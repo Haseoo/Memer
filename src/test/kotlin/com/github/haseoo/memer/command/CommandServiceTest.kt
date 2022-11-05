@@ -3,6 +3,7 @@ package com.github.haseoo.memer.command
 import com.github.haseoo.memer.config.Env
 import com.github.haseoo.memer.generateCommandContext
 import com.github.haseoo.memer.repository.MemeRepository
+import com.github.haseoo.memer.service.ImageService
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -22,6 +23,9 @@ internal class CommandServiceTest {
 
     @MockK
     private lateinit var env: Env
+
+    @MockK
+    private lateinit var imageService: ImageService
 
     @InjectMockKs
     private lateinit var sut: CommandService

@@ -2,8 +2,8 @@ env:
   redisUri: ${REDIS_URI:redis://localhost:6379}
   botToken: ${BOT_TOKEN_NEW}
   memerUrl: ${MEMER_URL:http://localhost:8080}
-  dscViewerRedirectUrl: ${DSC_VIEWER_REDIRECT_URL:}
-  dscViewerUrl: ${DSC_VIEWER_URL:}
+  dscViewerRedirectUrl: ${DSC_VIEWER_REDIRECT_URL:http://localhost:8081/dsc-viewer}
+  dscViewerUrl: ${DSC_VIEWER_URL:http://localhost:8081/dsc-viewer}
   domain: ${DOMAIN:}
   prod: ${TOMCAT_PROD:false}
   imageUploadedQueueName: ${IMAGE_UPLOADED_QUEUE_NAME}
