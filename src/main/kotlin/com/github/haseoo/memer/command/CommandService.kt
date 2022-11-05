@@ -2,6 +2,7 @@ package com.github.haseoo.memer.command
 
 import com.github.haseoo.memer.config.Env
 import com.github.haseoo.memer.repository.MemeRepository
+import com.github.haseoo.memer.service.ImageService
 import org.springframework.stereotype.Service
 
 const val MEME_COMMAND = "meme"
@@ -13,15 +14,23 @@ const val MEME_DELETE_COMMAND = "delete"
 const val MEME_UPDATE_COMMAND = "update"
 const val MEME_RANKING_COMMAND = "ranking"
 const val MEME_LIST_COMMAND = "list"
+const val IMAGES_COMMAND = "images"
 
 @Service
 class CommandService(
     private val memeRepository: MemeRepository,
+    private val imageService: ImageService,
     private val env: Env
 ) {
     fun getCommand(context: CommandContext) = when (context.command[0]) {
         MEME_COMMAND -> executeMemeCommand(context)
         HELP_COMMAND -> HelpCommand()
+        IMAGES_COMMAND -> ImagesCommand(
+            context.serverId,
+            context.serverName,
+            context.userAllowedChannelIds,
+            imageService
+        )
         else -> UnknownCommand()
     }
 

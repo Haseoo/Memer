@@ -11,12 +11,16 @@ import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import net.dv8tion.jda.api.JDA
+import net.dv8tion.jda.api.Permission
 import net.dv8tion.jda.api.entities.Guild
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.TextChannel
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.interactions.commands.OptionMapping
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyAction
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import java.util.*
 
 @ExtendWith(MockKExtension::class)
 internal class SlashCommandListenerTest {
@@ -35,6 +39,8 @@ internal class SlashCommandListenerTest {
     fun `test slash command handling`() {
         //before
         val serverId = 2137L
+        val serverName = "Super"
+        val chanellId = 69L
         val commandParts = listOf("foo", "bar")
         val args = mapOf("foo" to "bar")
 
@@ -45,9 +51,13 @@ internal class SlashCommandListenerTest {
         val optionMappingMock = mockk<OptionMapping>()
         val replyActionMock = mockk<ReplyAction>()
         val deferReplyActionMock = mockk<ReplyAction>()
+        val textChannelMock = mockk<TextChannel>()
+        val memberMock = mockk<Member>()
         every { optionMappingMock.name } returns "foo"
         every { optionMappingMock.asString } returns "bar"
         every { guidMock.idLong } returns serverId
+        every { guidMock.name } returns serverName
+        every { guidMock.textChannels } returns listOf(textChannelMock)
         every { eventMock.guild } returns guidMock
         every { eventMock.commandPath } returns "foo/bar"
         every { eventMock.options } returns listOf(optionMappingMock)
@@ -55,9 +65,12 @@ internal class SlashCommandListenerTest {
         justRun { deferReplyActionMock.queue() }
         every { commandMock.execute() } returns commandResult
         every { eventMock.reply(commandResult.replyMessage) } returns replyActionMock
+        every { eventMock.member } returns memberMock
         every { replyActionMock.setEphemeral(!commandResult.isPublic) } returns replyActionMock
+        every { memberMock.getPermissions(textChannelMock) } returns EnumSet.of(Permission.MESSAGE_READ)
+        every { textChannelMock.idLong } returns chanellId
         justRun { replyActionMock.queue() }
-        val expectedCommandContext = SlashEventContext(serverId, commandParts, args)
+        val expectedCommandContext = SlashEventContext(serverId, serverName, setOf(chanellId), commandParts, args)
 
         //scenario: handler defers reply, executes command and uses result to reply to the event
         //given

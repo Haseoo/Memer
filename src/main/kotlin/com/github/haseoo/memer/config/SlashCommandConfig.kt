@@ -31,6 +31,11 @@ fun initSlashCommands(jda: JDA) {
         .addSubcommands(SubcommandData(MEME_RANKING_COMMAND, "shows top 10 memes on the server"))
         .addSubcommands(SubcommandData(MEME_LIST_COMMAND, "shows all memes on the server"))
         .queue()
+    jda.upsertCommand(
+        IMAGES_COMMAND,
+        "sends you a link to the page with images sent on this server grouped by channels"
+    )
+        .queue()
     jda.upsertCommand(HELP_COMMAND, "get help!")
         .queue()
 }
