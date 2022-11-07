@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test
 
 internal class AddMemeCommandTest {
 
-
     private lateinit var memeRepository: MemeRepository
 
     private lateinit var sut: AddMemeCommand

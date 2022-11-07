@@ -12,6 +12,10 @@ val COMMAND_ARGS = mapOf("name" to TEST_MEME_NAME, "url" to TEST_MEME_URL)
 
 const val TEST_SERVER_ID = 2137L
 
+const val TEST_SERVER_NAME = "test"
+
+val TEST_ALLOWED_CHANNELS = setOf(21L, 37L)
+
 fun generateCommandContext(command: List<String>): CommandContext {
     val mock = mockk<CommandContext>()
     every { mock.command } returns command.toList()

@@ -35,7 +35,7 @@ class ImageService(
     }
 
     fun generateImageToken(authDataId: String): String {
-        val authDataJson = _imagesAuthDataRepository.popAuthDataAsString(authDataId)
+        val authDataJson = _imagesAuthDataRepository.popAuthData(authDataId)
             ?: throw LinkExpiredException()
         val result: ImageTokenResponse?
         try {
@@ -48,8 +48,7 @@ class ImageService(
                 ImageTokenResponse::class.java
             )
         } catch (e: Exception) {
-            e.printStackTrace()
-            throw IllegalStateException("Image server is down", e)
+            throw IllegalStateException("Image server is down or unexpected exception occurred.", e)
         }
         return result?.token ?: throw IllegalStateException("Token not available, image server might be down!")
     }

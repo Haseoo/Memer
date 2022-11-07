@@ -2,9 +2,7 @@ package com.github.haseoo.memer.controller
 
 import com.github.haseoo.memer.controller.view.MemeMediaType
 import com.github.haseoo.memer.domain.Meme
-import com.github.haseoo.memer.repository.ImagesAuthDataRepository
 import com.github.haseoo.memer.repository.MemeRepository
-import com.github.haseoo.memer.service.ImageService
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import io.mockk.mockk
@@ -25,7 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.awt.PageAttributes.MediaType
 import java.util.stream.Stream
 
-@SpringBootTest
+@SpringBootTest(classes = [MemeListController::class])
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 internal class MemeListControllerTest {
@@ -38,12 +36,6 @@ internal class MemeListControllerTest {
 
     @MockkBean
     private lateinit var memeRepository: MemeRepository
-
-    @MockkBean
-    private lateinit var imageService: ImageService
-
-    @MockkBean
-    private lateinit var imagesAuthDataRepository: ImagesAuthDataRepository
 
     @Test
     fun `meme list page contains server name retrieved form Discord client`() {
