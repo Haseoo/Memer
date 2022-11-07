@@ -24,7 +24,7 @@ class ImagesAuthDataRepository(
         _redisCommand.set(getAuthDataId(key), dataAsString, SetArgs().ex(Duration.ofMinutes(5)))
     }
 
-    fun popAuthDataAsString(key: String): String? {
+    fun popAuthData(key: String): String? {
         val authDataId = getAuthDataId(key)
         if (_redisCommand.exists(authDataId) == 0L) {
             return null
